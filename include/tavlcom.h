@@ -32,6 +32,17 @@ class TAVLCom
         //--------------------------------------------------
         //--------------------------------------------------
         //--------------------------------------------------
+        // Rotación simple a la derecha(PP) 
+        void RSD();
+        // Rotación doble a la derecha(PP)
+        void RDD();
+        // Rotación simple a la izquierda(Podemos)
+        void RSI();
+        // Rotación doble a la izquierda(Podemos)
+        void RII();
+        // Equilibrar árbol AVL partiendo de un nodo
+        void Equilibrar();
+        // ------------------------------------------------ //
         // Sobrecarga del operador igualdad
         bool operator==(TAVLCom&);
         // Sobrecarga del operador de desigualdad
@@ -76,6 +87,8 @@ private:
 	TComplejo item;
 	// Subárbol izquierdo y derecho
 	TAVLCom iz, de;
+    // Factor de equilibrio
+    int fe ;
 public:
 	// Constructor por defecto
 	TNodoAVL ();

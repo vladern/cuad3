@@ -6,7 +6,7 @@ TNodoAVL::TNodoAVL():item(),iz(),de()
 }
 TNodoAVL::TNodoAVL(TNodoAVL &nodo):item(nodo.item),iz(nodo.iz),de(nodo.de)
 {
-
+    this->fe=nodo.fe;
 }
 TNodoAVL::~TNodoAVL()
 {
@@ -14,7 +14,7 @@ TNodoAVL::~TNodoAVL()
 }
 /*
 *
-*--------------------ABBComplejo----------------------
+*--------------------AVLComplejo----------------------
 *
 */
 // Constructor por defecto
@@ -75,6 +75,51 @@ bool TAVLCom::EsVacio() const
     {
         return false;
     }
+}
+// Rotación simple a la derecha(PP)
+/*
+             [P]
+            /   \
+          [Q]   [C]
+         /   \   
+      [A]     [B]
+*/
+void TAVLCom::RSD()
+{
+    TNodoAVL* P = this->nodo;
+    TNodoAVL* Q = this->nodo->iz.nodo;
+    TNodoAVL* B = Q->de.nodo;
+    //1.Pasamos el subárbol derecho del nodo Q como subárbol izquierdo de P.
+    P->iz.nodo = B;
+    //2.El árbol P pasa a ser el subárbol derecho del nodo Q.
+    Q->de.nodo = P;
+    /*3.Ahora, el nodo Q pasa a tomar la posición del nodo P, es decir,
+     hacemos que la entrada al árbol sea el nodo Q, en lugar del nodo P.
+     Previamente, P puede que fuese un árbol completo o un subárbol de otro nodo de menor altura.*/
+     this->nodo=Q;
+     //una vez balanceado cambiamos el factor de equilibrio
+     this->nodo->fe=0;
+     this->nodo->de.nodo->fe=0;
+}
+// Rotación doble a la derecha(PP)
+void TAVLCom::RDD()
+{
+
+}
+// Rotación simple a la izquierda(Podemos)
+void TAVLCom::RSI()
+{
+
+}
+// Rotación doble a la izquierda(Podemos)
+void TAVLCom::RII()
+{
+
+}
+// Equilibrar árbol AVL partiendo de un nodo
+void TAVLCom::Equilibrar()
+{
+
 }
 // Devuelve el número de nodos del árbol (un árbol vacío posee 0 nodos)
 int TAVLCom::Nodos()
