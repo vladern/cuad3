@@ -3,7 +3,7 @@ OPTIONS= -g
 DEBUG= -D DEBUG
 LIBDIR=lib
 INCLUDEDIR=include
-_OBJ= tabbcom.o tcomplejo.o tvectorcom.o
+_OBJ= tavlcom.o tcomplejo.o tvectorcom.o
 OBJ = $(patsubst %,$(LIBDIR)/%,$(_OBJ))
 all : tad
 tad: src/tad.cpp $(OBJ)

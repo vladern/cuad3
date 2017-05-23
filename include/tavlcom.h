@@ -34,6 +34,8 @@ class TAVLCom
         //--------------------------------------------------
         // Sobrecarga del operador igualdad
         bool operator==(TAVLCom&);
+        // Sobrecarga del operador de desigualdad
+        bool operator!=(TAVLCom&);
         // Devuelve TRUE si el árbol está vacío, FALSE en caso contrario
         bool EsVacio()const;
         // Inserta el elemento en el árbol

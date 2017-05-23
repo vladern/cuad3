@@ -240,9 +240,11 @@ bool TAVLCom::operator==(TAVLCom& arbol)
         }
         return true;
     }
-        
-
     return false;
+}
+bool TAVLCom::operator!=(TAVLCom& arbol)
+{
+    return(!((*this)==arbol));
 }
 // Devuelve TRUE si el elemento está en el árbol, FALSE en caso contrario
 bool TAVLCom::Buscar(const TComplejo& com)
