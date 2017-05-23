@@ -1,15 +1,15 @@
-#ifndef TABBCOM_H__
-#define TABBCOM_H__
+#ifndef TAVLCom_H__
+#define TAVLCom_H__
 #include "tcomplejo.h"
 #include "tvectorcom.h"
 #include <algorithm>
 
-class TNodoABB;
-class TABBCom
+class TNodoAVL;
+class TAVLCom
 {
-        friend class TNodoABB;
+        friend class TNodoAVL;
         // Puntero al nodo
-        TNodoABB *nodo;
+        TNodoAVL *nodo;
         // AUXILIAR : Devuelve el recorrido en inorden
         void InordenAux(TVectorCom &, int &);
         // AUXILIAR : Devuelve el recorrido en preorden
@@ -19,21 +19,21 @@ class TABBCom
         void NivelesnAux(TVectorCom &, int &);
     public:
         //copia
-        void Copia(const TABBCom&);
+        void Copia(const TAVLCom&);
         // Constructor por defecto
-        TABBCom();
+        TAVLCom();
         // Constructor de copia
-        TABBCom(const TABBCom&);
+        TAVLCom(const TAVLCom&);
         // Destructor
-        ~TABBCom();
+        ~TAVLCom();
         // Sobrecarga del operador asignación
-        TABBCom & operator=(const TABBCom &);
+        TAVLCom & operator=(const TAVLCom &);
         //--------------------Metodos-----------------------
         //--------------------------------------------------
         //--------------------------------------------------
         //--------------------------------------------------
         // Sobrecarga del operador igualdad
-        bool operator==(TABBCom&);
+        bool operator==(TAVLCom&);
         // Devuelve TRUE si el árbol está vacío, FALSE en caso contrario
         bool EsVacio()const;
         // Inserta el elemento en el árbol
@@ -41,7 +41,7 @@ class TABBCom
         //min
         TComplejo maxi();
         //Borrar aux
-        TABBCom BorrarAux(const TComplejo& com);
+        TAVLCom BorrarAux(const TComplejo& com);
         // Borra el elemento en el árbol
         bool Borrar(const TComplejo &);
         // Devuelve TRUE si el elemento está en el árbol, FALSE en caso contrario
@@ -65,26 +65,26 @@ class TABBCom
         // Devuelve el recorrido en niveles
         TVectorCom Niveles();
         // Sobrecarga del operador salida
-        friend ostream & operator<<(ostream &, TABBCom &);
+        friend ostream & operator<<(ostream &, TAVLCom &);
 };
-class TNodoABB{
-friend class TABBCom;
+class TNodoAVL{
+friend class TAVLCom;
 private:
 	// El elemento del nodo
 	TComplejo item;
 	// Subárbol izquierdo y derecho
-	TABBCom iz, de;
+	TAVLCom iz, de;
 public:
 	// Constructor por defecto
-	TNodoABB ();
+	TNodoAVL ();
 
 	// Constructor de copia
-	TNodoABB (TNodoABB &);
+	TNodoAVL (TNodoAVL &);
 
 	// Sobrecarga del operador asignación
-	TNodoABB & operator=( TNodoABB &);
+	TNodoAVL & operator=( TNodoAVL &);
 
 	// destructor de la clase
-	virtual ~TNodoABB();
+	virtual ~TNodoAVL();
 };
 #endif

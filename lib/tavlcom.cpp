@@ -1,14 +1,14 @@
-#include "tabbcom.h"
+#include "tavlcom.h"
 #include <queue>
-TNodoABB::TNodoABB():item(),iz(),de()
+TNodoAVL::TNodoAVL():item(),iz(),de()
 {
 
 }
-TNodoABB::TNodoABB(TNodoABB &nodo):item(nodo.item),iz(nodo.iz),de(nodo.de)
+TNodoAVL::TNodoAVL(TNodoAVL &nodo):item(nodo.item),iz(nodo.iz),de(nodo.de)
 {
 
 }
-TNodoABB::~TNodoABB()
+TNodoAVL::~TNodoAVL()
 {
 
 }
@@ -18,18 +18,18 @@ TNodoABB::~TNodoABB()
 *
 */
 // Constructor por defecto
-TABBCom::TABBCom()
+TAVLCom::TAVLCom()
 {
     this->nodo=NULL;
 }
 // Constructor de copia
-TABBCom::TABBCom(const TABBCom& arbol)
+TAVLCom::TAVLCom(const TAVLCom& arbol)
 {
     this->nodo=NULL;
     this->Copia(arbol);
 }
 // Destructor
-TABBCom::~TABBCom()
+TAVLCom::~TAVLCom()
 {
     if(this!=NULL)
     {
@@ -38,22 +38,22 @@ TABBCom::~TABBCom()
     }
 }
 // Sobrecarga del operador asignación
-TABBCom& TABBCom::operator=(const TABBCom& arbol)
+TAVLCom& TAVLCom::operator=(const TAVLCom& arbol)
 {
     if(this != &arbol)
     {
-        (*this).~TABBCom();
+        (*this).~TAVLCom();
         Copia(arbol);
     }
     return(*this);
 }
 //copia
-void TABBCom::Copia(const TABBCom& arbol)
+void TAVLCom::Copia(const TAVLCom& arbol)
 {
     if(!arbol.EsVacio())
     {
         //nodo auxiliar
-        TNodoABB * aux = new TNodoABB();
+        TNodoAVL * aux = new TNodoAVL();
         aux->item = arbol.nodo->item;
         this->nodo=aux;
         //Recursivamente para todos los demas subarboles
@@ -66,7 +66,7 @@ void TABBCom::Copia(const TABBCom& arbol)
     }
 }
 // Devuelve TRUE si el árbol está vacío, FALSE en caso contrario
-bool TABBCom::EsVacio() const
+bool TAVLCom::EsVacio() const
 {
     if(this->nodo==NULL)
     {
@@ -77,7 +77,7 @@ bool TABBCom::EsVacio() const
     }
 }
 // Devuelve el número de nodos del árbol (un árbol vacío posee 0 nodos)
-int TABBCom::Nodos()
+int TAVLCom::Nodos()
 {
     
     if(this->EsVacio())
@@ -91,7 +91,7 @@ int TABBCom::Nodos()
 	}
 }
 //Inorde auxiliar
-void TABBCom::InordenAux(TVectorCom &v,int &posicion)
+void TAVLCom::InordenAux(TVectorCom &v,int &posicion)
 {
 	if(this->nodo!=NULL)
 	{
@@ -105,7 +105,7 @@ void TABBCom::InordenAux(TVectorCom &v,int &posicion)
 		
 	}
 }
-void TABBCom::PreordenAux(TVectorCom &v,int &posicion)
+void TAVLCom::PreordenAux(TVectorCom &v,int &posicion)
 {
 	if(this->nodo!=NULL)
 	{
@@ -119,7 +119,7 @@ void TABBCom::PreordenAux(TVectorCom &v,int &posicion)
 		
 	}
 }
-void TABBCom::PostordenAux(TVectorCom &v,int &posicion)
+void TAVLCom::PostordenAux(TVectorCom &v,int &posicion)
 {
 	if(this->nodo!=NULL)
 	{
@@ -133,7 +133,7 @@ void TABBCom::PostordenAux(TVectorCom &v,int &posicion)
 	}
 }
 // Devuelve el recorrido en inorden
-TVectorCom TABBCom::Inorden()
+TVectorCom TAVLCom::Inorden()
 {
     if(!this->EsVacio())
     {
@@ -149,7 +149,7 @@ TVectorCom TABBCom::Inorden()
         return vec;
     }
 }
-TVectorCom TABBCom::Preorden()
+TVectorCom TAVLCom::Preorden()
 {
     if(!this->EsVacio())
     {
@@ -165,7 +165,7 @@ TVectorCom TABBCom::Preorden()
         return vec;
     }
 }
-TVectorCom TABBCom::Postorden()
+TVectorCom TAVLCom::Postorden()
 {
     if(!this->EsVacio())
     {
@@ -182,13 +182,13 @@ TVectorCom TABBCom::Postorden()
     }
 }
 // Devuelve el recorrido en niveles
-TVectorCom TABBCom::Niveles()
+TVectorCom TAVLCom::Niveles()
 {
          
     //cola de abb s
-    queue<TABBCom> c;
+    queue<TAVLCom> c;
     //una arbol abb
-    TABBCom aux;
+    TAVLCom aux;
     int pos=1;
     //vector
     TVectorCom vec(this->Nodos());
@@ -219,7 +219,7 @@ TVectorCom TABBCom::Niveles()
     return vec;
 }
 // Devuelve la altura del árbol (la altura de un árbol vacío es 0)
-int TABBCom::Altura()const
+int TAVLCom::Altura()const
 {
     if(this->EsVacio())
     {
@@ -230,7 +230,7 @@ int TABBCom::Altura()const
     }
 }
 // Sobrecarga del operador igualdad
-bool TABBCom::operator==(TABBCom& arbol)
+bool TAVLCom::operator==(TAVLCom& arbol)
 {
     for(int i=1;i<=arbol.Inorden().Tamano();i++)
     {
@@ -245,7 +245,7 @@ bool TABBCom::operator==(TABBCom& arbol)
     return false;
 }
 // Devuelve TRUE si el elemento está en el árbol, FALSE en caso contrario
-bool TABBCom::Buscar(const TComplejo& com)
+bool TAVLCom::Buscar(const TComplejo& com)
 {
     if(this->EsVacio())
     {
@@ -264,7 +264,7 @@ bool TABBCom::Buscar(const TComplejo& com)
     }
 }
 // Inserta el elemento en el árbol
-bool TABBCom::Insertar(TComplejo& com)
+bool TAVLCom::Insertar(TComplejo& com)
 {
     //Compruebo que el complejo no este ya insertado
     if(!this->Buscar(com))
@@ -272,7 +272,7 @@ bool TABBCom::Insertar(TComplejo& com)
         //si el arbol esta vacio iserto el primer elemento
         if(this->EsVacio())
         {
-            TNodoABB* aux = new TNodoABB();
+            TNodoAVL* aux = new TNodoAVL();
             aux->item=com;
             this->nodo=aux;
             return true;
@@ -290,7 +290,7 @@ bool TABBCom::Insertar(TComplejo& com)
     return false;
 }
 //min
-TComplejo TABBCom::maxi()
+TComplejo TAVLCom::maxi()
 {
     //si esvacio(i) entonces
     if(this->nodo->de.EsVacio())
@@ -304,12 +304,12 @@ TComplejo TABBCom::maxi()
     }
 }
 //auxiliar de borrar
-TABBCom TABBCom::BorrarAux(const TComplejo& com)
+TAVLCom TAVLCom::BorrarAux(const TComplejo& com)
 {
     //borrar( crea_arbin( ), x ) = crea_arbin()
     if(this->EsVacio())
     {
-        return TABBCom();
+        return TAVLCom();
     }
     //si ( y < x ) entonces
     if(com.Mod() < this->nodo->item.Mod())
@@ -346,7 +346,7 @@ TABBCom TABBCom::BorrarAux(const TComplejo& com)
     }
 }
 // Borra el elemento en el árbol
-bool TABBCom::Borrar(const TComplejo& com)
+bool TAVLCom::Borrar(const TComplejo& com)
 {
     if(this->EsVacio())
     {
@@ -359,7 +359,7 @@ bool TABBCom::Borrar(const TComplejo& com)
     return true;
 }
 // Devuelve el elemento en la raíz del árbol
-TComplejo TABBCom::Raiz()
+TComplejo TAVLCom::Raiz()
 {
     if(this->EsVacio())
     {
@@ -369,7 +369,7 @@ TComplejo TABBCom::Raiz()
     return this->nodo->item;
 }
 //devuelve true si es hoja
-bool TABBCom::EsHoja()
+bool TAVLCom::EsHoja()
 {
     if(this->nodo==NULL)
         return true;
@@ -382,7 +382,7 @@ bool TABBCom::EsHoja()
 	}
 }
 // Devuelve el número de nodos hoja en el árbol (la raíz puede ser nodo hoja)
-int TABBCom::NodosHoja()
+int TAVLCom::NodosHoja()
 {
     if(this->EsVacio())
         return 0;
@@ -393,7 +393,7 @@ int TABBCom::NodosHoja()
     int total = this->nodo->iz.NodosHoja()+this->nodo->de.NodosHoja();
     return (total);
 }
-ostream& operator<<(ostream& os, TABBCom& com)
+ostream& operator<<(ostream& os, TAVLCom& com)
 {
     os<<com.Niveles();
     return os;
