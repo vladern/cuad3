@@ -1,0 +1,1 @@
+git log --oneline //muestra el log pero de forma simplificada
