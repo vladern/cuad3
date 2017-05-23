@@ -89,27 +89,62 @@ void TAVLCom::RSD()
     TNodoAVL* P = this->nodo;
     TNodoAVL* Q = this->nodo->iz.nodo;
     TNodoAVL* B = Q->de.nodo;
+    if(this->nodo->iz.nodo->fe==0)
+    {
+        Q->fe=1;
+        P->fe=-1;
+    }else
+    {
+        Q->fe=0;
+        P->fe=0;
+    }
     //1.Pasamos el subárbol derecho del nodo Q como subárbol izquierdo de P.
     P->iz.nodo = B;
     //2.El árbol P pasa a ser el subárbol derecho del nodo Q.
     Q->de.nodo = P;
     /*3.Ahora, el nodo Q pasa a tomar la posición del nodo P, es decir,
      hacemos que la entrada al árbol sea el nodo Q, en lugar del nodo P.
-     Previamente, P puede que fuese un árbol completo o un subárbol de otro nodo de menor altura.*/
+     Previamente, P puede que fuese un árbol completo o un subárbol de otro nodo de menor altura.
+     */
      this->nodo=Q;
-     //una vez balanceado cambiamos el factor de equilibrio
-     this->nodo->fe=0;
-     this->nodo->de.nodo->fe=0;
 }
 // Rotación doble a la derecha(PP)
 void TAVLCom::RDD()
 {
-
+ 
 }
 // Rotación simple a la izquierda(Podemos)
+/*
+             [P]
+            /   \
+          [A]   [Q]   
+               /   \   
+            [B]     [C]
+*/
 void TAVLCom::RSI()
 {
+    TNodoAVL* P = this->nodo;
+    TNodoAVL* Q = this->nodo->de.nodo;
+    TNodoAVL* B = Q->iz.nodo;
 
+    /*
+    1.Pasamos el subárbol izquierdo del nodo Q como subárbol derecho de P.
+    Esto mantiene el árbol como ABB, ya que todos los valores a la izquierda
+    de Q siguen estando a la derecha de P.
+    */
+    P->de.nodo = B;
+    /*2.El árbol P pasa a ser el subárbol izquierdo del nodo Q.*/
+    Q->iz.nodo = P;
+    /*
+    3.Ahora, el nodo Q pasa a tomar la posición del nodo P,
+    es decir, hacemos que la entrada al árbol sea el nodo Q,
+    en lugar del nodo P. Previamente, P puede que fuese un árbol
+    completo o un subárbol de otro nodo de menor altura.
+    */
+    this->nodo=Q;
+    //actualizo el factor de equilibrio
+    Q->fe=0;
+    P->fe=0;
 }
 // Rotación doble a la izquierda(Podemos)
 void TAVLCom::RII()
