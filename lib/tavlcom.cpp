@@ -227,26 +227,29 @@ void TAVLCom::RDI()
 // Equilibrar árbol AVL partiendo de un nodo
 void TAVLCom::Equilibrar()
 {
-    if(this->nodo->fe==-2)//rotacion
+    if(!this->nodo->de.EsVacio())
     {
-        if(this->nodo->de.nodo->fe==1)
+        if(this->nodo->fe==-2)//rotacion
         {
-            this->RDD();//doble
-        }else
+
+            if(this->nodo->de.nodo->fe==1)
+            {
+                this->RDD();//doble
+            }else
+            {
+                this->RSD();//simple
+            }
+        } 
+        if(this->nodo->fe==2)//rotacion doble izquierda
         {
-            this->RSD();//simple
+            if(this->nodo->iz.nodo->fe == -1)
+            {
+                this->RDI();//doble
+            }else
+            {
+                this->RSI();//simple
+            }
         }
-    } 
-    if(this->nodo->fe==2)//rotacion doble izquierda
-    {
-        if(this->nodo->iz.nodo->fe=-1)
-        {
-            this->RDI();//doble
-        }else
-        {
-            this->RSI();//simple
-        }
-    }
 }
 // Devuelve el número de nodos del árbol (un árbol vacío posee 0 nodos)
 int TAVLCom::Nodos()
@@ -404,6 +407,7 @@ int TAVLCom::Altura()const
 // Sobrecarga del operador igualdad
 bool TAVLCom::operator==(TAVLCom& arbol)
 {
+    if(arbol.EsVacio() && !this->EsVacio())return false;
     for(int i=1;i<=arbol.Inorden().Tamano();i++)
     {
         if(!this->Buscar(arbol.Inorden()[i]))
@@ -458,13 +462,15 @@ bool TAVLCom::Insertar(TComplejo& com)
             bool a = this->nodo->iz.Insertar(com);
             this->nodo->fe = this->nodo->de.Altura() - this->nodo->iz.Altura();
             this->Equilibrar();
+            this->nodo->fe = this->nodo->de.Altura() - this->nodo->iz.Altura();
             return a;
         //si la raiz es menor que el complejo busco en el subarbol derecho
         }else
         {
             bool a = this->nodo->de.Insertar(com);
-            this->nodo->fe=this->nodo->de.Altura() - this->nodo->iz.Altura();
+            this->nodo->fe = this->nodo->de.Altura() - this->nodo->iz.Altura();
             this->Equilibrar();
+            this->nodo->fe = this->nodo->de.Altura() - this->nodo->iz.Altura();
             return a;
         }
     }
