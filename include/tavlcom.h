@@ -39,7 +39,7 @@ class TAVLCom
         // Rotación simple a la izquierda(Podemos)
         void RSI();
         // Rotación doble a la izquierda(Podemos)
-        void RII();
+        void RDI();
         // Equilibrar árbol AVL partiendo de un nodo
         void Equilibrar();
         // ------------------------------------------------ //

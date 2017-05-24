@@ -2,7 +2,7 @@
 #include <queue>
 TNodoAVL::TNodoAVL():item(),iz(),de()
 {
-
+    this->fe=0;
 }
 TNodoAVL::TNodoAVL(TNodoAVL &nodo):item(nodo.item),iz(nodo.iz),de(nodo.de)
 {
@@ -10,7 +10,7 @@ TNodoAVL::TNodoAVL(TNodoAVL &nodo):item(nodo.item),iz(nodo.iz),de(nodo.de)
 }
 TNodoAVL::~TNodoAVL()
 {
-
+    
 }
 /*
 *
@@ -195,7 +195,7 @@ void TAVLCom::RSI()
               / \   
             [B] [C]   
 */
-void TAVLCom::RII()
+void TAVLCom::RDI()
 {
     TNodoAVL* P = this->nodo;
     TNodoAVL* Q = P->de.nodo;
@@ -227,7 +227,16 @@ void TAVLCom::RII()
 // Equilibrar árbol AVL partiendo de un nodo
 void TAVLCom::Equilibrar()
 {
-
+    if(this->nodo->fe == -2)
+    { /* Rotar a derechas: */
+         if(nodo->iz.nodo->fe == 1) this->RDD(); /* Rotación doble  */
+         else this->RSD();                         /* Rotación simple */
+    }
+    else if(nodo->fe == 2) 
+    {  /* Rotar a izquierdas y salir: */
+        if(nodo->de.nodo->fe == -1) this->RDI(); /* Rotación doble  */
+        else this->RSI();                   /* Rotación simple */
+    }
 }
 // Devuelve el número de nodos del árbol (un árbol vacío posee 0 nodos)
 int TAVLCom::Nodos()
