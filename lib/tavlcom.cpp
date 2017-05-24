@@ -78,9 +78,9 @@ bool TAVLCom::EsVacio() const
 }
 // Rotación simple a la derecha(PP)
 /*
-             [P]
-            /   \
-          [Q]   [C]
+             [P](fe:-2)
+   (fe:0)   /   \
+   (fe:-1)[Q]   [C]
          /   \   
       [A]     [B]
 */
@@ -109,15 +109,50 @@ void TAVLCom::RSD()
      this->nodo=Q;
 }
 // Rotación doble a la derecha(PP)
+/*
+             [P](fe:-2)
+            /   \
+    (fe:1)[Q]   [D]
+          / \
+        [A] [R](fe:-1)
+            / \   
+          [B] [C]   
+*/
 void TAVLCom::RDD()
 {
- 
+    TNodoAVL* P = this->nodo;
+    TNodoAVL* Q = P->iz.nodo;
+    TNodoAVL* R = Q->de.nodo;
+    TNodoAVL* B = R->iz.nodo;
+    TNodoAVL* C = R->de.nodo;
+
+   /*1.Pasamos el subárbol izquierdo del nodo R como subárbol derecho de Q.
+    Esto mantiene el árbol como ABB, ya que todos los valores a la izquierda
+    de R siguen estando a la derecha de Q.*/
+      Q->de.nodo=B;
+    /*2.Ahora, el nodo R pasa a tomar la posición del nodo Q, es decir,
+     hacemos que la raíz del subárbol izquierdo de P sea el nodo R en 
+     lugar de Q.*/
+      P->iz.nodo=R;
+     /*3.El árbol Q pasa a ser el subárbol izquierdo del nodo R.*/
+      R->iz.nodo=Q;
+     /*4.Pasamos el subárbol derecho del nodo R como subárbol izquierdo de P.
+      Esto mantiene el árbol como ABB, ya que todos los valores a la derecha de R
+      siguen estando a la izquierda de P.*/
+      P->iz.nodo=C;
+      /*5.Ahora, el nodo R pasa a tomar la posición del nodo P, es decir,
+      hacemos que la entrada al árbol sea el nodo R, en lugar del nodo P.
+      Como en los casos anteriores, previamente, P puede que fuese un árbol
+      completo o un subárbol de otro nodo de menor altura.*/
+      this->nodo=R;
+      /*6.El árbol P pasa a ser el subárbol derecho del nodo R.*/
+      R->de.nodo=P;
 }
 // Rotación simple a la izquierda(Podemos)
 /*
-             [P]
+             [P](fe:2)
             /   \
-          [A]   [Q]   
+          [A]   [Q](fe:1)   
                /   \   
             [B]     [C]
 */
@@ -322,6 +357,7 @@ bool TAVLCom::operator==(TAVLCom& arbol)
     }
     return false;
 }
+// Sobrecarga del operador de desigualdad
 bool TAVLCom::operator!=(TAVLCom& arbol)
 {
     return(!((*this)==arbol));
