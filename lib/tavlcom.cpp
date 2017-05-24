@@ -89,7 +89,7 @@ void TAVLCom::RSD()
     TNodoAVL* P = this->nodo;
     TNodoAVL* Q = this->nodo->iz.nodo;
     TNodoAVL* B = Q->de.nodo;
-    if(this->nodo->iz.nodo->fe==0)
+    /*if(this->nodo->iz.nodo->fe==0)
     {
         Q->fe=1;
         P->fe=-1;
@@ -97,7 +97,7 @@ void TAVLCom::RSD()
     {
         Q->fe=0;
         P->fe=0;
-    }
+    }*/
     //1.Pasamos el subárbol derecho del nodo Q como subárbol izquierdo de P.
     P->iz.nodo = B;
     //2.El árbol P pasa a ser el subárbol derecho del nodo Q.
@@ -182,8 +182,8 @@ void TAVLCom::RSI()
     */
     this->nodo=Q;
     //actualizo el factor de equilibrio
-    Q->fe=0;
-    P->fe=0;
+  /*  Q->fe=0;
+    P->fe=0;*/
 }
 // Rotación doble a la izquierda(Podemos)
 /*
@@ -227,15 +227,25 @@ void TAVLCom::RDI()
 // Equilibrar árbol AVL partiendo de un nodo
 void TAVLCom::Equilibrar()
 {
-    if(this->nodo->fe == -2)
-    { /* Rotar a derechas: */
-         if(nodo->iz.nodo->fe == 1) this->RDD(); /* Rotación doble  */
-         else this->RSD();                         /* Rotación simple */
-    }
-    else if(nodo->fe == 2) 
-    {  /* Rotar a izquierdas y salir: */
-        if(nodo->de.nodo->fe == -1) this->RDI(); /* Rotación doble  */
-        else this->RSI();                   /* Rotación simple */
+    if(this->nodo->fe==-2)//rotacion
+    {
+        if(this->nodo->de.nodo->fe==1)
+        {
+            this->RDD();//doble
+        }else
+        {
+            this->RSD();//simple
+        }
+    } 
+    if(this->nodo->fe==2)//rotacion doble izquierda
+    {
+        if(this->nodo->iz.nodo->fe=-1)
+        {
+            this->RDI();//doble
+        }else
+        {
+            this->RSI();//simple
+        }
     }
 }
 // Devuelve el número de nodos del árbol (un árbol vacío posee 0 nodos)
@@ -400,9 +410,8 @@ bool TAVLCom::operator==(TAVLCom& arbol)
         {
             return false;
         }
-        return true;
     }
-    return false;
+    return true;
 }
 // Sobrecarga del operador de desigualdad
 bool TAVLCom::operator!=(TAVLCom& arbol)
@@ -436,20 +445,27 @@ bool TAVLCom::Insertar(TComplejo& com)
     {
         //si el arbol esta vacio iserto el primer elemento
         if(this->EsVacio())
-        {
+        {   
             TNodoAVL* aux = new TNodoAVL();
             aux->item=com;
             this->nodo=aux;
+            this->nodo->fe=0;
             return true;
         }
         //si la raiz es mayor que el complejo busco en el subarbol izquierdo
         if(this->nodo->item.Mod()>com.Mod())
         {
-            return this->nodo->iz.Insertar(com);
+            bool a = this->nodo->iz.Insertar(com);
+            this->nodo->fe = this->nodo->de.Altura() - this->nodo->iz.Altura();
+            this->Equilibrar();
+            return a;
         //si la raiz es menor que el complejo busco en el subarbol derecho
         }else
         {
-            return this->nodo->de.Insertar(com);
+            bool a = this->nodo->de.Insertar(com);
+            this->nodo->fe=this->nodo->de.Altura() - this->nodo->iz.Altura();
+            this->Equilibrar();
+            return a;
         }
     }
     return false;
@@ -481,24 +497,32 @@ TAVLCom TAVLCom::BorrarAux(const TComplejo& com)
     {
         //borrar( enraizar( i, x, d ), y ) = enraizar( borrar( i, y ), x, d )
         this->nodo->iz = this->nodo->iz.BorrarAux(com);
+        this->nodo->fe = this->nodo->de.Altura() - this->nodo->iz.Altura();
+        this->Equilibrar();
         return(*this);
     //sino si ( y > x ) entonces
     }else if( com.Mod() > this->nodo->item.Mod())
     {
         //borrar(enraizar( i, x, d ), y ) = enraizar( i, x, borrar( d, y )) fsi
         this->nodo->de = this->nodo->de.BorrarAux(com);
+        this->nodo->fe = this->nodo->de.Altura() - this->nodo->iz.Altura();
+        this->Equilibrar();
         return (*this);
     }
     //si(y==x) y esvacio(d) entonces
     if(this->nodo->item.Mod()==com.Mod() && this->nodo->de.EsVacio())
     {
         //borrar( enraizar( i, x, d ), y ) = i fsi
+        this->nodo->fe = this->nodo->de.Altura() - this->nodo->iz.Altura();
+        this->Equilibrar();
         return this->nodo->iz;
     }
     //si ( y==x ) y esvacio( i ) entonces
     if(this->nodo->item.Mod()==com.Mod() && this->nodo->iz.EsVacio())
     {
         //borrar( enraizar( i, x, d ), y ) = d fsi
+        this->nodo->fe = this->nodo->de.Altura() - this->nodo->iz.Altura();
+        this->Equilibrar();
         return this->nodo->de;
     }
     //si (y==x) y no esvacio(d) y no esvacio(i) entonces
@@ -507,6 +531,8 @@ TAVLCom TAVLCom::BorrarAux(const TComplejo& com)
         //sustituyo por el mayor de la izquierda
         this->nodo->item = this->nodo->iz.maxi();
         this->nodo->iz = this->nodo->iz.BorrarAux(this->nodo->iz.maxi());
+        this->nodo->fe = this->nodo->de.Altura() - this->nodo->iz.Altura();
+        this->Equilibrar();
         return (*this);
     }
 }

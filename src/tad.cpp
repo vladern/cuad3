@@ -38,4 +38,5 @@ main(void)
   else
     cout<<"iguales"<<endl;
 
+    cout<<a.Preorden()<<endl;
 }
