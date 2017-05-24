@@ -147,6 +147,10 @@ void TAVLCom::RDD()
       this->nodo=R;
       /*6.El árbol P pasa a ser el subárbol derecho del nodo R.*/
       R->de.nodo=P;
+      //actualizo el factor de equilibrio
+      Q->fe=0;
+      R->fe=0;
+      P->fe=1;
 }
 // Rotación simple a la izquierda(Podemos)
 /*
@@ -182,9 +186,43 @@ void TAVLCom::RSI()
     P->fe=0;
 }
 // Rotación doble a la izquierda(Podemos)
+/*
+             [P](fe:2)
+            /   \
+          [A]   [Q](fe:-1)
+                / \
+        (fe:1)[R] [D]
+              / \   
+            [B] [C]   
+*/
 void TAVLCom::RII()
 {
+    TNodoAVL* P = this->nodo;
+    TNodoAVL* Q = P->de.nodo;
+    TNodoAVL* R = Q->iz.nodo;
+    TNodoAVL* B = R->iz.nodo;
+    TNodoAVL* C = R->de.nodo;
 
+    /*1.Pasamos el subárbol derecho del nodo R como subárbol izquierdo de Q.
+    Esto mantiene el árbol como ABB, ya que todos los valores a la derecha de R
+    siguen estando a la izquierda de Q.*/
+    Q->iz.nodo=C;
+    /*2.Ahora, el nodo R pasa a tomar la posición del nodo Q, es decir,
+    hacemos que la raíz del subárbol derecho de P sea el nodo R en lugar de Q.*/
+    P->de.nodo=R;
+    /*3.El árbol Q pasa a ser el subárbol derecho del nodo R.*/
+    R->de.nodo=Q;
+    /*4.Pasamos el subárbol izquierdo del nodo R como subárbol derecho de P.
+    Esto mantiene el árbol como ABB, ya que todos los valores a la izquierda de R
+    siguen estando a la derecha de P.*/
+    P->de.nodo=B;
+    /*5.Ahora, el nodo R pasa a tomar la posición del nodo P, es decir,
+    hacemos que la entrada al árbol sea el nodo R, en lugar del nodo P.
+    Como en los casos anteriores, previamente, P puede que fuese un árbol
+    completo o un subárbol de otro nodo de menor altura.*/
+    this->nodo=R;
+    /*6.El árbol P pasa a ser el subárbol izquierdo del nodo R.*/
+    R->iz.nodo=P;
 }
 // Equilibrar árbol AVL partiendo de un nodo
 void TAVLCom::Equilibrar()
