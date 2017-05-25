@@ -227,12 +227,11 @@ void TAVLCom::RDI()
 // Equilibrar árbol AVL partiendo de un nodo
 void TAVLCom::Equilibrar()
 {
-    if(!this->nodo->de.EsVacio())
-    {
+
         if(this->nodo->fe==-2)//rotacion
         {
 
-            if(this->nodo->de.nodo->fe==1)
+            if(this->nodo->iz.nodo->fe==1)
             {
                 this->RDD();//doble
             }else
@@ -242,7 +241,7 @@ void TAVLCom::Equilibrar()
         } 
         if(this->nodo->fe==2)//rotacion doble izquierda
         {
-            if(this->nodo->iz.nodo->fe == -1)
+            if(this->nodo->de.nodo->fe == -1)
             {
                 this->RDI();//doble
             }else
@@ -303,8 +302,8 @@ void TAVLCom::PostordenAux(TVectorCom &v,int &posicion)
         //itero recursivamente por el subarbol derecho
         this->nodo->de.PostordenAux(v,posicion);
         //inserto la raiz en el vector
-        posicion++;
-		v[posicion]=this->nodo->item;	
+        v[posicion]=this->nodo->item;
+        posicion++;	
 	}
 }
 // Devuelve el recorrido en inorden

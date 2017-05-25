@@ -1,6 +1,6 @@
 TESTSCOMPLEJO=7
 TESTSVECTOR=8
-TAVLCOM=1
+TAVLCOM=10
 nombreBase="tad"
 extension=".cpp"
 zero="0"
