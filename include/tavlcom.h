@@ -34,13 +34,13 @@ class TAVLCom
         //--------------------------------------------------
         // Rotación simple a la derecha(PP) 
         void RSD();
-        // Rotación doble a la derecha(PP)
+        // Rotación doble a la derecha(PP + Ciudadanos)
         void RDD();
         // Rotación simple a la izquierda(Podemos)
         void RSI();
-        // Rotación doble a la izquierda(Podemos)
+        // Rotación doble a la izquierda(PSOE + Ciudadanos)
         void RDI();
-        // Equilibrar árbol AVL partiendo de un nodo
+        // Equilibrar árbol AVL partiendo de un nodo (PSOE + Podemos + Ciudadanos)
         void Equilibrar();
         // ------------------------------------------------ //
         // Sobrecarga del operador igualdad
