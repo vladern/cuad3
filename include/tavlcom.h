@@ -50,7 +50,7 @@ class TAVLCom
         // Devuelve TRUE si el árbol está vacío, FALSE en caso contrario
         bool EsVacio()const;
         // Inserta el elemento en el árbol
-        bool Insertar(TComplejo &);
+        bool Insertar(const TComplejo &);
         //min
         TComplejo maxi();
         //Borrar aux

@@ -1,4 +1,2 @@
-es vacio
-inorden=[(1) (9 9), (2) (10 10), (3) (12 12)]
-postorden=[(1) (9 9), (2) (12 12), (3) (10 10)]
-inorden=[]
+Nodos: 1000
+Nodos: 0

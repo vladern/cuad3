@@ -441,7 +441,7 @@ bool TAVLCom::Buscar(const TComplejo& com)
     }
 }
 // Inserta el elemento en el árbol
-bool TAVLCom::Insertar(TComplejo& com)
+bool TAVLCom::Insertar(const TComplejo& com)
 {
     //Compruebo que el complejo no este ya insertado
     if(!this->Buscar(com))

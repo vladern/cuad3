@@ -1,5 +1,5 @@
 /* Prueba:
-     - inorden, postorden, EsVacio
+     - Borrar, Nodos
 */
 
 #include <iostream>
@@ -12,29 +12,23 @@ int
 main(void)
 {
   TAVLCom a;
-  TComplejo c3(3,3),c5(5,5),c9(9,9),c12(12,12),c10(10,10);
-  TVectorCom l1,l2;
-  
-  if (a.EsVacio())
-    cout<<"es vacio"<<endl; 
-    
-  a.Insertar(c10);
-  a.Insertar(c12);
-  a.Insertar(c9);
+  TComplejo c;
 
-  l1=a.Inorden();
-  l2=a.Postorden();
-
-  if (!a.EsVacio())
+  for(int i = 1; i <= 1000; i++)
   {
-    cout<<"inorden="<<l1<<endl;
-    cout<<"postorden="<<l2<<endl;
+    c.Re(i);
+    c.Im(i);
+    a.Insertar(c);
   }
-  
-  a.~TAVLCom();
 
-  if (a.EsVacio())
-    cout<<"inorden="<<a.Inorden()<<endl;
+  cout << "Nodos: " << a.Nodos() << endl;
 
-  
+  for(int i = 1; i <= 1000; i++)
+  {
+    c.Re(i);
+    c.Im(i);
+    a.Borrar(c);
+  }
+
+  cout << "Nodos: " << a.Nodos() << endl;
 }

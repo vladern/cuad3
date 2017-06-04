@@ -1,5 +1,5 @@
 /* Prueba:
-     - INSERCION y preorden
+     - Buscar, Nodos
 */
 
 #include <iostream>
@@ -12,20 +12,31 @@ int
 main(void)
 {
   TAVLCom a;
-  TComplejo c4(4,4),c6(6,6),c1(1,1),c2(2,2),c3(3,3),c5(5,5),c7(7,7);
-  TVectorCom l1,l2,l3;
-  
-  a.Insertar(c1);
-  a.Insertar(c2);
-  a.Insertar(c3);
-  a.Insertar(c4);
-  a.Insertar(c5);
-  a.Insertar(c6);
-  a.Insertar(c7);
+  TComplejo c;
+  TComplejo d33(33, 33), d78(78, 78);
 
+  for(int i = 1; i <= 100; i++)
+  {
+    c.Re(i);
+    c.Im(i);
+    a.Insertar(c);
+  }
 
-  cout<<"preorden="<<a.Preorden()<<endl;
+  cout << "Nodos: " << a.Nodos() << endl;
 
-  
-  return 1;
+  a.Borrar(d33);
+  cout << "Nodos: " << a.Nodos() << endl;
+
+  a.Borrar(d78);
+  cout << "Nodos: " << a.Nodos() << endl;
+
+  if(a.Buscar(d33))
+    cout << "Si" << endl;
+  else
+    cout << "No" << endl;
+
+  if(a.Buscar(d78))
+    cout << "Si" << endl;
+  else
+    cout << "No" << endl;
 }
