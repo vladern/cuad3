@@ -1,6 +1,7 @@
 #ifndef TAVLCom_H__
 #define TAVLCom_H__
 #include "tcomplejo.h"
+#include "tlistacom.h"
 #include "tvectorcom.h"
 #include <algorithm>
 
@@ -18,6 +19,15 @@ class TAVLCom
         void PostordenAux(TVectorCom &, int &);
         void NivelesnAux(TVectorCom &, int &);
     public:
+        //Examen Jun 2016
+        int* insertarEnArr(int* arr,int pos,TComplejo com);
+        int* recorrerLista(TListaCom l,int* arr,int pos);
+        int* examen(const TListaCom&);
+        /*-----------------------------
+        -------------------------------
+        -------------------------------
+        -------------------------------
+        -------------------------------*/
         //copia
         void Copia(const TAVLCom&);
         // Constructor por defecto

@@ -17,6 +17,69 @@ TNodoAVL::~TNodoAVL()
 *--------------------AVLComplejo----------------------
 *
 */
+//Examen Jun 2016
+
+int* TAVLCom::insertarEnArr(int* arr,int pos,TComplejo com)
+{
+    if(this->EsVacio())
+    {
+        return arr;
+    }
+    //si el modulo de la raiz es mayor que el modulo de num. complejo
+    if(this->nodo->item.Mod()>com.Mod())
+    {
+        return this->nodo->iz.insertarEnArr(arr,pos,com);
+    }else if(this->nodo->item.Mod()< com.Mod())
+    {
+        return this->nodo->de.insertarEnArr(arr,pos,com);
+    }else
+    {
+        if(this->EsHoja())
+        {
+            arr[pos]=0;
+        }else if(this->nodo->iz.nodo!=NULL && this->nodo->de.nodo!=NULL)
+        {
+            arr[pos]=2;
+        }else
+        {
+            arr[pos]=1;
+        }
+        return arr;
+    }    
+}
+int* TAVLCom::recorrerLista(TListaCom l,int* arr,int pos)
+{
+    if(l.EsVacia())
+    {
+        return arr;
+    }
+    TComplejo primer = l.Obtener(l.Primera());
+    l.Borrar(l.Primera());
+    arr = this->insertarEnArr(arr,pos,primer);
+    pos++;
+    return this->recorrerLista(l,arr,pos);    
+}
+int* TAVLCom::examen(const TListaCom& l)
+{
+    if(l.EsVacia())
+    {
+        return NULL;
+    }else if(this->EsVacio())
+    {
+        int tam = l.Longitud();
+        int a [tam];
+        for(int i=0;i<l.Longitud();i++)
+        {
+            a[i]=0;
+        }
+        return a;
+    }else
+    {
+        int tam = l.Longitud();
+        int a [tam];
+        return this->recorrerLista(l,a,0);
+    }
+}
 // Constructor por defecto
 TAVLCom::TAVLCom()
 {
